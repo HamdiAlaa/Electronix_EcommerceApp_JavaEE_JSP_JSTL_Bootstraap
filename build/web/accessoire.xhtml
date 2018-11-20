@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Accessoire</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="assets/css/styles_non_index.css"/>   
+    </h:head>
+    <h:body>
+         <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header"><a class="navbar-brand navbar-link" href="index.xhtml"><strong>Electronix</strong> </a>
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li role="presentation"><a href="robotique.xhtml">Robotique </a></li>
+                    <li role="presentation"><a href="electronique.xhtml">Eléctronique </a></li>
+                    <li role="presentation"><a href="materiels.xhtml">Matériels </a></li>
+                    <li role="presentation"><a href="accessoire.xhtml">Accessoire </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--Les boutons de Tri-->
+    <f:param name="bool" value="vrai"/>
+    <div id="boutonsDeTri">
+        <h:form>
+            <h:commandButton value="trier par nom"
+                             action="accessoire.xhtml" class="btn btn-primary active btn-xs" >
+                <f:param name="bool" value="isNom" />
+            </h:commandButton>
+            <h:commandButton value="trier par prix"
+                             action="accessoire.xhtml" class="btn btn-primary active btn-xs">
+                <f:param name="bool" value="isPrix" />
+
+            </h:commandButton>
+            <!--<h:commandButton value="trier par prix de bonus"
+                   action="index.xhtml" class="btn btn-primary active btn-xs">
+                <f:param name="id" value="5555" />
+            </h:commandButton>-->
+        </h:form>
+        <!--<button class="btn btn-primary active btn-xs" type="submit" id="tri_par_nom_button">trier par nom </button>
+        <button class="btn btn-primary btn-xs" type="submit">trier par prix</button>
+        <button class="btn btn-primary btn-xs" type="submit">trier par prix de bonus</button>-->
+    </div>
+    <div class="container" id="triButton">
+        <p id="titleProduit">Accessoire</p>
+    </div>
+    <c:set var="bool" value="#{param['bool']}"/>
+    <c:choose>
+        <c:when test = "${bool == 'isNom'}">
+            <h:dataTable var="p" value="#{produitController.allAccessoireListWithName}">
+            <!--Description de produit-->
+                <h:column>
+                    <f:facet name="header" ></f:facet>
+                    <div class="container">
+                    <h3 id="headProduct"><h:outputText value="${p.nom}"></h:outputText></h3>
+                    <ul>
+                        <li><p><h:outputText value="${p.description}"></h:outputText></p></li>
+                        <li><p><B> Prix d'un article :</B>  <h:outputText value=" ${p.prix}"></h:outputText> Dinars</p></li>
+                        <li><p><B>Quantité pour une remise :</B> <h:outputText value=" ${p.categorieFk.quantiteRemise}"></h:outputText></p></li>
+                        <li><p><B>Porcentage de remise : </B><h:outputText value=" ${p.categorieFk.porcentage}"></h:outputText> </p></li>
+                    </ul>
+                    </div>
+                    <!--assets/img/rapi.png-->
+                    <div class="container" id="image"><img class="img-responsive" src="#{p.imageUrl}" id="logoProduct"/>
+                    </div>
+                    <hr/>
+                </h:column>
+            </h:dataTable>        
+        </c:when>
+            <c:when test = "${bool =='isPrix'}">
+                <h:dataTable var="p" value="#{produitController.allAccessoireListWithPrice}">
+                    <h:column>
+                    <f:facet name="header" ></f:facet>
+                    <div class="container">
+                    <h3 id="headProduct"><h:outputText value="${p.nom}"></h:outputText></h3>
+                    <ul>
+                        <li><p><h:outputText value="${p.description}"></h:outputText></p></li>
+                    <li><p><B> Prix d'un article :</B>  <h:outputText value=" ${p.prix}"></h:outputText> Dinars</p></li>
+                    <li><p><B>Quantité pour une remise :</B> <h:outputText value=" ${p.categorieFk.quantiteRemise}"></h:outputText></p></li>
+                    <li><p><B>Porcentage de remise : </B><h:outputText value=" ${p.categorieFk.porcentage}"></h:outputText> </p></li>
+                    </ul>
+                    </div>
+                    <!--assets/img/rapi.png-->
+                    <div class="container" id="image"><img class="img-responsive" src="#{p.imageUrl}" id="logoProduct"/>
+                    </div>
+                    <hr/>
+                </h:column>
+            </h:dataTable>
+        </c:when>
+        <c:otherwise>
+            <h:dataTable var="p" value="#{produitController.allAccesoireList}">
+                <h:column>
+                <f:facet name="header" ></f:facet>
+                    <div class="container">
+                    <h3 id="headProduct"><h:outputText value="${p.nom}"></h:outputText></h3>
+                    <ul>
+                        <li><p><h:outputText value="${p.description}"></h:outputText></p></li>
+                        <li><p><B> Prix d'un article :</B>  <h:outputText value=" ${p.prix}"></h:outputText> Dinars</p></li>
+                        <li><p><B>Quantité pour une remise :</B> <h:outputText value=" ${p.categorieFk.quantiteRemise}"></h:outputText></p></li>
+                        <li><p><B>Porcentage de remise : </B><h:outputText value=" ${p.categorieFk.porcentage}"></h:outputText> </p></li>
+                    </ul>
+                    </div>
+                    <!--assets/img/rapi.png-->
+                    <div class="container" id="image"><img class="img-responsive" src="#{p.imageUrl}" id="logoProduct"/>
+                    </div>
+                    <hr/>
+                </h:column>
+        </h:dataTable>
+    </c:otherwise>
+    </c:choose>
+    
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    </h:body>
+
+
+
+
+</html>
+

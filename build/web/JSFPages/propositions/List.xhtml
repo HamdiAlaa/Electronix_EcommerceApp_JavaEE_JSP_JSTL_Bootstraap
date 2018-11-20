@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPropositionsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListPropositionsEmpty}" rendered="#{propositionsController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{propositionsController.items.rowCount > 0}">
+                    <h:outputText value="#{propositionsController.pagination.pageFirstItem + 1}..#{propositionsController.pagination.pageLastItem + 1}/#{propositionsController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{propositionsController.previous}" value="#{bundle.Previous} #{propositionsController.pagination.pageSize}" rendered="#{propositionsController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{propositionsController.next}" value="#{bundle.Next} #{propositionsController.pagination.pageSize}" rendered="#{propositionsController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{propositionsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropositionsTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropositionsTitle_nomPrenom}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomPrenom}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropositionsTitle_email}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropositionsTitle_propositions}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.propositions}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPropositionsTitle_motivation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motivation}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{propositionsController.prepareView}" value="#{bundle.ListPropositionsViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{propositionsController.prepareEdit}" value="#{bundle.ListPropositionsEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{propositionsController.destroy}" value="#{bundle.ListPropositionsDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{propositionsController.prepareCreate}" value="#{bundle.ListPropositionsCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/faces/JSFPages/adminPages/indexManager.xhtml" value="#{bundle.ListPropositionsIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

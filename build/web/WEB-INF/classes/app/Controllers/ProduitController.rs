@@ -1,0 +1,12 @@
+app.Controllers.ProduitController$8
+app.Controllers.ProduitController$ProduitControllerConverter
+app.Controllers.ProduitController$7
+app.Controllers.ProduitController$9
+app.Controllers.ProduitController$4
+app.Controllers.ProduitController$3
+app.Controllers.ProduitController
+app.Controllers.ProduitController$6
+app.Controllers.ProduitControllerConverter
+app.Controllers.ProduitController$5
+app.Controllers.ProduitController$2
+app.Controllers.ProduitController$1
